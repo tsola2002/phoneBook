@@ -57,5 +57,21 @@ class ContactService(val contactRepository: ContactRepository) {
         }
     }
 
+    fun deleteContact(contactId: Int) {
+
+        val existingContact = contactRepository.findById(contactId)
+
+        return if(existingContact.isPresent){
+            existingContact.get()
+                    .let {
+                       contactRepository.deleteById(contactId)
+                    }
+
+        } else {
+            throw CourseNotFoundException("No course found for the passed in Id : $contactId")
+        }
+
+    }
+
 
 }

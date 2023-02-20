@@ -3,6 +3,7 @@ package com.tsola2002.phoneBook.controller
 import com.tsola2002.phoneBook.dto.ContactDTO
 import com.tsola2002.phoneBook.service.ContactService
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -29,6 +30,12 @@ class ContactController(val contactService: ContactService) {
     fun updateCourse(@RequestBody contactDTO: ContactDTO,
                     @PathVariable("contact_id") contactId: Int)
     = contactService.updateContact(contactId, contactDTO)
+
+
+    @DeleteMapping("/{contact_id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteCourse(@PathVariable("contact_id") contactId: Int)
+    = contactService.deleteContact(contactId)
 
 
 
