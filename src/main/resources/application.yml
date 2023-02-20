@@ -3,10 +3,10 @@ spring:
     name: course-catalog-service
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5438/courses
+    url: jdbc:postgresql://localhost:5438/contacts  # docker based based url
     #    url: jdbc:postgresql://localhost:5432/courses
     username: postgres
-    password:
+    password: postgres
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
