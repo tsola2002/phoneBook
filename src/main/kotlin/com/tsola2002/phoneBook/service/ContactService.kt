@@ -68,10 +68,12 @@ class ContactService(val contactRepository: ContactRepository) {
                     }
 
         } else {
-            throw CourseNotFoundException("No course found for the passed in Id : $contactId")
+            throw CourseNotFoundException("No contact found for the passed in Id : $contactId")
         }
 
     }
+
+
 
 
 }

@@ -1,6 +1,8 @@
 package com.tsola2002.phoneBook.controller
 
 import com.tsola2002.phoneBook.dto.ContactDTO
+import com.tsola2002.phoneBook.entity.Contact
+import com.tsola2002.phoneBook.repository.ContactRepository
 import com.tsola2002.phoneBook.service.ContactService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/contacts")
-class ContactController(val contactService: ContactService) {
+class ContactController(val contactService: ContactService, val contactRepository: ContactRepository) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -25,6 +27,13 @@ class ContactController(val contactService: ContactService) {
 
     @GetMapping
     fun retrieveAllContacts() : List<ContactDTO> = contactService.retrieveAllContacts()
+
+
+    @GetMapping("/{contact_id}")
+    fun retrieveContactById(@PathVariable contact_id: Int): Contact {
+        return contactRepository.findById(contact_id).orElseThrow()
+    }
+
 
     @PutMapping("/{contact_id}")
     fun updateCourse(@RequestBody contactDTO: ContactDTO,
