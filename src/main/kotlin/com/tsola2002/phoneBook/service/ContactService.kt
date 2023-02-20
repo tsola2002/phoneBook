@@ -2,6 +2,7 @@ package com.tsola2002.phoneBook.service
 
 import com.tsola2002.phoneBook.dto.ContactDTO
 import com.tsola2002.phoneBook.entity.Contact
+import com.tsola2002.phoneBook.exception.CourseNotFoundException
 import com.tsola2002.phoneBook.repository.ContactRepository
 import mu.KLogging
 import org.springframework.stereotype.Service
@@ -35,6 +36,25 @@ class ContactService(val contactRepository: ContactRepository) {
                     ContactDTO(it.id, it.name, it.phoneNumber, it.address)
                 }
 
+    }
+
+    fun updateContact(contactId: Int, contactDTO: ContactDTO): ContactDTO {
+
+        val existingContact = contactRepository.findById(contactId)
+
+        return if(existingContact.isPresent){
+            existingContact.get()
+                    .let {
+                        it.name = contactDTO.name
+                        it.phoneNumber = contactDTO.phoneNumber
+                        it.address = contactDTO.address
+                        contactRepository.save(it)
+                        ContactDTO(it.id, it.name, it.phoneNumber, it.address)
+                    }
+
+        } else {
+            throw CourseNotFoundException("No course found for the passed in Id : $contactId")
+        }
     }
 
 
