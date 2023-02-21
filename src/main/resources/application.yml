@@ -3,8 +3,8 @@ spring:
     name: course-catalog-service
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5438/contacts  # docker based based url
-    #    url: jdbc:postgresql://localhost:5432/courses
+    url: jdbc:postgresql://localhost:5438/contacts  # for use with docker-compose.yml built image
+#    url: jdbc:postgresql://localhost:5432/contacts  # for use locally built postgres database
     username: postgres
     password: postgres
   jpa:
@@ -19,3 +19,6 @@ spring:
           lob:
             non_contextual_creation: true
 message: Hello from default profile
+---
+spring.config.activate.on-profile: docker
+server.port: 8080
